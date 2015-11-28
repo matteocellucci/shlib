@@ -23,7 +23,7 @@ anonimize	createtxt	helloworld	tarandrm
 To install shlib, navigate with `cd` command into downloaded repo folder and run installation script with `sudo ./initshlib`.
 
 ## Manual
-'''
+```
 Usage:
 	shlib [-l] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive] [-E archive]
 Description:
@@ -38,14 +38,14 @@ Option:
 	-I	Import all scripts in a compressed archive
 	
 	-o	Adding this options to some other, force to overwrite any existing script with the same name
-'''
+```
 
 ## Troubleshooting
 * Portability has still not been tested. It works on Fedora 23.
 
 ## Feeds
-* **Bug report:** [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
-* **Feature request:** [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
+* Bug report: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
+* Feature request: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
 
 ## License
 This project is released under [The MIT Licenese (MIT)](https://github.com/matteocellucci/shlib/blob/master/license).
