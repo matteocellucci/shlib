@@ -1,25 +1,29 @@
 # Shell scripts library
-Shlib is a library to easily manage own shell scripts from terminal in Linux. Imported scripts can be immediately used as traditional command.
+Shlib is a library to easily manage own shell scripts from terminal in Linux. Imported scripts can be immediately used as traditional commands.
 
 ## Example
+This is an example of shell script called `helloworld` stored in `~/`
 ```Shell
 #!/bin/sh
-# This is mynewscript
-echo "Hello World!"
+echo "Hello world!"
 ```
+Adding this script to the library, it is used as a command
 ```ShellSession
-[guest@github ~]$ shlib -a mynewscript
-[guest@github ~]$ mynewscript
+[guest@github ~]$ shlib -a helloworld
+[guest@github ~]$ helloworld
 Hello World!
+```
+Print all scripts in the library
+```ShellSession
 [guest@github ~]$ shlib -l
-mynewscript	myoldscript	anotherscript
-[guest@github ~]$
+anonimize	createtxt	helloworld	tarandrm
 ```
 
 ## Installation
 To install shlib, navigate with `cd` command into downloaded repo folder and run installation script with `sudo ./initshlib`.
 
 ## Manual
+'''
 Usage:
 	shlib [-l] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive] [-E archive]
 Description:
@@ -32,10 +36,16 @@ Option:
 	-r	Remove a script from the library	
 	-E	Export all library's scripts saving them in a compressed archive
 	-I	Import all scripts in a compressed archive
+	
 	-o	Adding this options to some other, force to overwrite any existing script with the same name
+'''
 
 ## Troubleshooting
 * Portability has still not been tested. It works on Fedora 23.
 
+## Feeds
+* **Bug report:** [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
+* **Feature request:** [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
+
 ## License
-This project is released under The MIT Licenese (MIT). You can find a copy [here](https://github.com/matteocellucci/shlib/blob/master/license).
+This project is released under [The MIT Licenese (MIT)](https://github.com/matteocellucci/shlib/blob/master/license).
