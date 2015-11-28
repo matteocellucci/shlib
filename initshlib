@@ -1,0 +1,24 @@
+#!/bin/sh
+# --------------------------------------------------------------------------------------- MAIN
+mkdir -p ~/.shlib
+cp shlib ~/.shlib
+cp ~/.bash_profile /tmp/.bash_profile_backup
+rm -f /tmp/.bash_profile_shlib
+while read line
+do
+	if [[ "$line" == PATH=\$PATH:* ]]
+	then
+		if [[ "$line" == *\$HOME/.shlib* ]]
+		then
+			echo $line >> /tmp/.bash_profile_shlib
+		else
+			echo "$line:\$HOME/.shlib" >> /tmp/.bash_profile_shlib
+		fi
+	else
+		echo $line >> /tmp/.bash_profile_shlib
+	fi
+done < ~/.bash_profile
+PATH=$PATH:$HOME/.shlib
+export PATH
+cp /tmp/.bash_profile_shlib ~/.bash_profile
+rm /tmp/.bash_profile_shlib

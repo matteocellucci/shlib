@@ -1,0 +1,151 @@
+#!/bin/sh
+# --------------------------------------------------------------------------------------- INIT
+home="~/.shlib"
+overwrite=0
+# --------------------------------------------------------------------------------------- FUNC
+## Check overwrite call for existing file.
+## 	param $1 file to check
+check_overwrite(){
+	if [ -f $1 ]
+	then
+		echo -n "Script already exists. Do you really want to overwrite [y/N]? "
+		read choice
+		if [ "$choice" != "y" ]
+		then
+			exit 1
+		fi
+	fi
+} 
+## Print shlib manual
+print_man() {
+	echo "Usage:"
+	echo -e "\t shlib [-l] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive] [-E archive]"
+	echo "Description:"
+	echo -e "\t shlib manages personal shell scripts. Scripts can be used as traditional command in linux terminal."
+	echo "Option:"
+	echo -e "\t -a \t Add an existing script to the library. The name of th file should be extensionless and it will be the name of the command"
+	echo -e "\t -n \t Add a new script to the library and automaticaly open vim to edit its"
+	echo -e "\t -e \t Edit an existing script of the library"
+	echo -e "\t -l \t Print the list of all library's scripts"
+	echo -e "\t -r \t Remove a script from the library"
+	echo -e "\t -E \t Export all library's scripts saving them in a compressed archive"
+	echo -e "\t -I \t Import all scripts in a compressed archive"
+	echo -e "\t -o \t Adding this options to some other, force to overwrite any existing script with the same name"
+}
+## Parse file name in a string path and store it in "filename" variable
+## 	param $1 path to parse
+parse_path(){
+	filename=$(basename $1)
+}
+# --------------------------------------------------------------------------------------- MAIN
+case $1 in
+	"-a"|"add")
+		case $2 in
+			"-o")
+				parse_path $3
+				cp $3 $home
+				chmod 775 $home/$filename
+			;;
+			"")
+				print_man
+			;;
+			*)
+				parse_path $2
+				check_overwrite $home/$filename
+				cp $2 $home
+				chmod 775 $home/$filename
+			;;
+		esac
+	;;
+	"-n"|"new")
+		case $2 in
+			"-o")
+				touch $home/$3
+				chmod 777 $home/$3
+				echo "#!/bin/sh" > $home/$3
+				chmod 775 $home/$3
+				vim -c 'startinsert' $home/$3
+			;;
+			"")
+				print_man
+			;;
+			*)
+				check_overwrite $home/$2
+				touch $home/$2
+				chmod 777 $home/$2
+				echo "#!/bin/sh" > $home/$2
+				chmod 775 $home/$2
+				vim -c 'startinsert' $home/$2
+			;;
+		esac
+	;;
+	"-e"|"edit")
+		if [ "$2" = "" ]
+		then
+			print_man
+		elif [ -f $home/$2 ]
+		then
+			vim $home/$2
+		else
+			echo "Script do not exists"
+		fi
+	;;
+	"-l"|"list")
+		ls -1 --hide=shlib $home 
+	;;
+	"-r"|"remove")
+		if [ "$2" = "" ]
+		then
+			print_man
+		else
+			rm $home/$2
+		fi
+	;;
+	"-E"|"export")
+		tar -zcvf shlib-$(date +%F).tar.gz $home/*
+	;;
+	"-I"|"import")
+		case $2 in
+			"-o")
+				parse_path $3
+				cp $3 $home
+				tar -zxcf --overwrite $home/$filename
+				rm $home/$filename
+			;;
+			"")
+				print_man
+			;;						
+			*)
+				tmp=/tmp/shlib
+				rm -f $tmp
+				mkdir $tmp
+				parse_path $2
+				cp $2 $tmp
+				tar -zxcf --overwrite $tmp/$filename
+				yesallcheck=0
+				for script in $tmp
+				do
+					if [ $yesallcheck -ne 1 ]
+					then
+						echo -n "Script already exists. Do you really want to overwrite [y/Y/N]? "
+						read choice
+						if [ "$choice" = "y" ]
+						then
+							cp $script $home
+						elif [ "$choice" = "Y" ]
+						then
+							cp $script $home
+							yesallcheck=1
+						fi
+					else
+						cp $script $home
+					fi
+				done
+				rm -r $tmp
+			;;
+		esac
+	;;
+	*)
+		print_man
+	;;
+esac
