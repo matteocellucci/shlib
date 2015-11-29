@@ -29,7 +29,7 @@ check_overwrite(){
 ## Print shlib manual
 print_man() {
 	echo "Usage:"
-	echo -e "\t shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive]"
+	echo -e "\t shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script...] [-I -o archive]"
 	echo "Description:"
 	echo -e "\t shlib manages personal shell scripts. Scripts can be used as traditional command in linux terminal."
 	echo "Option:"
@@ -37,7 +37,7 @@ print_man() {
 	echo -e "\t -n \t Add a new script to the library and automaticaly open vim to edit its"
 	echo -e "\t -e \t Edit an existing script of the library"
 	echo -e "\t -l \t Print the list of all library's scripts"
-	echo -e "\t -r \t Remove a script from the library"
+	echo -e "\t -r \t Remove a script or a list of scripts from the library"
 	echo -e "\t -E \t Export all library's scripts saving them in a compressed archive"
 	echo -e "\t -I \t Import all scripts in a compressed archive"
 	echo -e "\t -o \t Adding this options to some other, force to overwrite any existing script with the same name"
@@ -112,7 +112,13 @@ case $1 in
 		then
 			print_man
 		else
-			rm $home/$2
+			for script in "$@"
+			do
+				if [ "$script" != "-r" ]
+				then
+					rm -f $home/$script
+				fi
+			done
 		fi
 	;;
 	"-E"|"export")

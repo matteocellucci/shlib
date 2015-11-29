@@ -25,7 +25,7 @@ To install shlib, navigate with `cd` command into downloaded repo folder and run
 ## Manual
 ```
 Usage:
-	shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive]
+	shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script...] [-I -o archive]
 Description:
 	shlib manages personal shell scripts. Scripts can be used as traditional command terminal.
 Option:
@@ -33,10 +33,9 @@ Option:
 	-n	Add a new script to the library and automaticaly open vim to edit its
 	-e	Edit an existing script of the library
 	-l	Print the list of all library's scripts
-	-r	Remove a script from the library	
+	-r	Remove a script or a list of scripts from the library	
 	-E	Export all library's scripts saving them in a compressed archive
-	-I	Import all scripts in a compressed archive
-	
+	-I	Import all scripts in a compressed archive	
 	-o	Adding this options to some other, force to overwrite any existing script with the same name
 ```
 
@@ -46,6 +45,13 @@ Option:
 ## Feeds
 * Bug report: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
 * Feature request: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
+
+## Changelog
+* 2015 November 29, 1.1.1
+	- Fix some issues
+	- Implemented functionaly to remove more then one script `shlib -r script...`
+* 2015 November 28, 1.0.0
+	- Birth
 
 ## License
 This project is released under [The MIT Licenese (MIT)](https://github.com/matteocellucci/shlib/blob/master/license).
