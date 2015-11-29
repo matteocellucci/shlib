@@ -20,12 +20,12 @@ anonimize	createtxt	helloworld	tarandrm
 ```
 
 ## Installation
-To install shlib, navigate with `cd` command into downloaded repo folder and run installation script with `sudo ./initshlib`.
+To install shlib, navigate with `cd` command into downloaded repo folder and run installation script with `./initshlib`.
 
 ## Manual
 ```
 Usage:
-	shlib [-l] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive] [-E archive]
+	shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive]
 Description:
 	shlib manages personal shell scripts. Scripts can be used as traditional command terminal.
 Option:
@@ -41,7 +41,7 @@ Option:
 ```
 
 ## Troubleshooting
-* Portability has still not been tested. It works on Fedora 23.
+* Portability has still not been tested. It works on Fedora 23
 
 ## Feeds
 * Bug report: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)

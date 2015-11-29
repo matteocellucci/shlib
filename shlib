@@ -1,9 +1,19 @@
 #!/bin/sh
 # --------------------------------------------------------------------------------------- INIT
-home="~/.shlib"
+home=~/.shlib
+excludepattern=shlib
 overwrite=0
 # --------------------------------------------------------------------------------------- FUNC
-## Check overwrite call for existing file.
+## Check file existance. It will exit if file doesn't exist
+##	param $1 file to check
+check_existance(){
+	if [ ! -f $1 ]
+	then
+		echo "Script doesn't exist"
+		exit 1
+	fi
+}
+## Check overwrite call for existing file. It will exit if user denies permission
 ## 	param $1 file to check
 check_overwrite(){
 	if [ -f $1 ]
@@ -19,7 +29,7 @@ check_overwrite(){
 ## Print shlib manual
 print_man() {
 	echo "Usage:"
-	echo -e "\t shlib [-l] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive] [-E archive]"
+	echo -e "\t shlib [-l] [-E] [-a -o script] [-n -o script] [-e script] [-r script] [-I -o archive]"
 	echo "Description:"
 	echo -e "\t shlib manages personal shell scripts. Scripts can be used as traditional command in linux terminal."
 	echo "Option:"
@@ -42,6 +52,7 @@ case $1 in
 	"-a"|"add")
 		case $2 in
 			"-o")
+				check_existance $3
 				parse_path $3
 				cp $3 $home
 				chmod 775 $home/$filename
@@ -50,6 +61,7 @@ case $1 in
 				print_man
 			;;
 			*)
+				check_existance $3
 				parse_path $2
 				check_overwrite $home/$filename
 				cp $2 $home
@@ -63,8 +75,9 @@ case $1 in
 				touch $home/$3
 				chmod 777 $home/$3
 				echo "#!/bin/sh" > $home/$3
+				echo >> $home/$3
 				chmod 775 $home/$3
-				vim -c 'startinsert' $home/$3
+				vim +2 -c 'startinsert' $home/$3
 			;;
 			"")
 				print_man
@@ -74,8 +87,9 @@ case $1 in
 				touch $home/$2
 				chmod 777 $home/$2
 				echo "#!/bin/sh" > $home/$2
+				echo >> $home/$2
 				chmod 775 $home/$2
-				vim -c 'startinsert' $home/$2
+				vim +2 -c 'startinsert' $home/$2
 			;;
 		esac
 	;;
@@ -87,11 +101,11 @@ case $1 in
 		then
 			vim $home/$2
 		else
-			echo "Script do not exists"
+			echo "Target script doesn't exist"
 		fi
 	;;
 	"-l"|"list")
-		ls -1 --hide=shlib $home 
+		ls -1 --hide=$excludepattern $home 
 	;;
 	"-r"|"remove")
 		if [ "$2" = "" ]
@@ -102,11 +116,12 @@ case $1 in
 		fi
 	;;
 	"-E"|"export")
-		tar -zcvf shlib-$(date +%F).tar.gz $home/*
+		tar -zcvf shlib-$(date +%F).tar.gz --exclude=$excludepattern -C $home .
 	;;
 	"-I"|"import")
 		case $2 in
 			"-o")
+				check_existance $3
 				parse_path $3
 				cp $3 $home
 				tar -zxcf --overwrite $home/$filename
@@ -116,6 +131,7 @@ case $1 in
 				print_man
 			;;						
 			*)
+				check_existance $2
 				tmp=/tmp/shlib
 				rm -f $tmp
 				mkdir $tmp
