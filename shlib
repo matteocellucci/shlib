@@ -33,14 +33,14 @@ print_man() {
 	echo "Description:"
 	echo -e "\t shlib manages personal shell scripts. Scripts can be used as traditional command in linux terminal."
 	echo "Option:"
-	echo -e "\t -a \t Add an existing script to the library. The name of th file should be extensionless and it will be the name of the command"
-	echo -e "\t -n \t Add a new script to the library and automaticaly open vim to edit its"
-	echo -e "\t -e \t Edit an existing script of the library"
-	echo -e "\t -l \t Print the list of all library's scripts"
-	echo -e "\t -r \t Remove a script or a list of scripts from the library"
-	echo -e "\t -E \t Export all library's scripts saving them in a compressed archive"
-	echo -e "\t -I \t Import all scripts in a compressed archive"
-	echo -e "\t -o \t Adding this options to some other, force to overwrite any existing script with the same name"
+	echo -e "\t -a | all \t Add an existing script to the library. The name of th file should be extensionless\n\t\t\t and it will be the name of the command."
+	echo -e "\t -n | new \t Add a new script to the library and automaticaly open vim to edit its."
+	echo -e "\t -e | edit \t Edit an existing script of the library."
+	echo -e "\t -l | list \t Print the list of all library's scripts."
+	echo -e "\t -r | remove \t Remove a script or a list of scripts from the library."
+	echo -e "\t -E | export \t Export all library's scripts saving them in a compressed archive."
+	echo -e "\t -I | import \t Import all scripts in a compressed archive."
+	echo -e "\t -o \t\t Adding this options to some other, force to overwrite any existing script with\n\t\t\t the same name."
 }
 ## Parse file name in a string path and store it in "filename" variable
 ## 	param $1 path to parse

@@ -29,14 +29,16 @@ Usage:
 Description:
 	shlib manages personal shell scripts. Scripts can be used as traditional command terminal.
 Option:
-	-a	Add an existing script to the library. The name of th file should be extensionless and it will be the name of the command
-	-n	Add a new script to the library and automaticaly open vim to edit its
-	-e	Edit an existing script of the library
-	-l	Print the list of all library's scripts
-	-r	Remove a script or a list of scripts from the library	
-	-E	Export all library's scripts saving them in a compressed archive
-	-I	Import all scripts in a compressed archive	
-	-o	Adding this options to some other, force to overwrite any existing script with the same name
+	-a | all	Add an existing script to the library. The name of th file should be extensionless
+			and it will be the name of the command.
+	-n | new	Add a new script to the library and automaticaly open vim to edit its.
+	-e | edit	Edit an existing script of the library.
+	-l | list	Print the list of all library's scripts.
+	-r | remove	Remove a script or a list of scripts from the library.
+	-E | export	Export all library's scripts saving them in a compressed archive.
+	-I | import	Import all scripts in a compressed archive.
+	-o		Adding this options to some other, force to overwrite any existing script with
+			the same name.
 ```
 
 ## Troubleshooting
@@ -47,9 +49,11 @@ Option:
 * Feature request: [Open an issue](https://github.com/matteocellucci/shlib/issues/new)
 
 ## Changelog
+* 2015 December 10, 1.1.2
+	- Add long version options in the manual
 * 2015 November 29, 1.1.1
-	- Fix some issues
-	- Implemented functionaly to remove more then one script `shlib -r script...`
+	- Implement functionaly to remove more then one script `shlib -r script...`
+	- Fix some minor issues
 * 2015 November 28, 1.0.0
 	- Birth
 
